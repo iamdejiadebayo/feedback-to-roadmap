@@ -1,0 +1,9 @@
+{
+  "name": "feedback-to-roadmap",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Turn customer feedback into evidence-backed product opportunities.",
+  "scripts": { "test": "node --test", "check": "node --check src/core.mjs && node --check src/app.mjs" },
+  "engines": { "node": ">=20" }
+}

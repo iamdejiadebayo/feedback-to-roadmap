@@ -1,0 +1,17 @@
+id,feedback,customer,source,date,segment
+F001,"CSV export is missing the owner column. I need it for our weekly report.",Northstar Studio,Support,2026-09-01,Small business
+F002,"Please add owner and status columns to CSV export for our report.",Linden Labs,Interview,2026-09-03,Mid-market
+F003,"The report export takes too long and I cannot tell if it has finished.",Harbor Works,Survey,2026-09-05,Small business
+F004,"Permissions are confusing. I want a read-only role for external partners.",Oak & Field,Interview,2026-09-06,Mid-market
+F005,"We need a read-only role so partners cannot edit our projects.",Linden Labs,Support,2026-09-07,Mid-market
+F006,"I cannot find where to change team permissions.",Juniper Co,Support,2026-09-08,Small business
+F007,"Search does not find archived projects even when I know the name.",Northstar Studio,Support,2026-09-09,Small business
+F008,"Could search include archived projects? I have to browse them manually.",Harbor Works,Interview,2026-09-09,Small business
+F009,"Search results need a date filter so I can find last month's work.",Solstice Group,Survey,2026-09-10,Mid-market
+F010,"Email notifications are too frequent. I would prefer a daily digest.",Juniper Co,Survey,2026-09-11,Small business
+F011,"A daily digest for notifications would reduce email noise.",Oak & Field,Interview,2026-09-12,Mid-market
+F012,"Please keep immediate email notifications for urgent updates.",Solstice Group,Interview,2026-09-12,Mid-market
+F013,"I need to download an invoice for each payment for our finance team.",Linden Labs,Support,2026-09-14,Mid-market
+F014,"The invoice download is hard to find in account settings.",Harbor Works,Support,2026-09-15,Small business
+F015,"Our team would use a Slack integration to share project updates.",Northstar Studio,Survey,2026-09-16,Small business
+F016,"I love the current simple dashboard. Please avoid adding lots of panels.",Juniper Co,Interview,2026-09-17,Small business
