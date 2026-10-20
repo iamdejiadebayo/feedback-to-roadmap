@@ -20,3 +20,16 @@ A server has not been started by the assistant. Run the README's static preview 
 - Refresh after exporting. Confirm state clears, matching the interface's warning.
 
 Record browser/version, date, pass/fail, and screenshots where useful. Do not mark checks passed based only on unit tests.
+
+## v0.2 regression checklist
+
+- Edit a name, add notes, set scores, and mark a theme reviewed. Download the workspace, clear the tab, reopen the JSON, and verify all edits and selected theme are restored.
+- Open malformed JSON, a workspace with a missing evidence reference, or an unsupported version; verify the existing workspace remains unchanged.
+- Cancel replacement of a populated workspace; verify edits remain.
+- Merge two themes containing notes. Check confirmation text, preserved evidence/notes, retained destination name, and reset scores/review status.
+- Cancel a merge; confirm no changes.
+- Search by quote text, customer, and ID. Combine with a source filter, follow a result to its theme, and clear filters.
+- Rename or merge a theme while search results exist; verify result links use the current names and destinations.
+- After reopening a file, create a new theme and verify its ID does not collide with existing IDs.
+- Use keyboard-only navigation on Open workspace, merge dialog, and search controls. Check narrow screens.
+- Confirm no external requests and no automatic browser storage.

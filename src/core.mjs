@@ -42,6 +42,7 @@ export function parseCSV(text) {
     if(!data.feedback) throw new Error(`Record ${index+1} has empty feedback.`);
     if(data.feedback.length>5000) throw new Error(`Record ${index+1} exceeds 5,000 characters of feedback.`);
     const id=data.id || `F${String(index+1).padStart(3,'0')}`;
+    if(id.length>200 || ['customer','source','segment'].some(key=>(data[key]||'').length>300) || (data.date||'').length>100) throw new Error(`Record ${index+1} has an oversized ID or metadata field.`);
     if(seen.has(id)) throw new Error(`Duplicate feedback ID: ${id}. IDs must be unique.`);
     seen.add(id);
     return {id, text:data.feedback, customer:data.customer || 'Unspecified', source:data.source || 'Unspecified', date:data.date || '', segment:data.segment || 'Unspecified'};
@@ -70,7 +71,7 @@ export function suggestThemes(records) {
     const counts=new Map();
     g.ids.forEach(id=>tokens(records.find(r=>r.id===id).text).forEach(t=>counts.set(t,(counts.get(t)||0)+1)));
     const top=[...counts].sort((a,b)=>b[1]-a[1] || a[0].localeCompare(b[0])).slice(0,3).map(([t])=>t);
-    return {id:`T${index+1}`,name:top.length?top.join(' / '):'Needs review',ids:g.ids,reviewed:false,reach:0,impact:1,confidence:50,effort:1,notes:''};
+    return {id:`T${index+1}`,name:top.length?top.join(' / ').slice(0,120):'Needs review',ids:g.ids,reviewed:false,reach:0,impact:1,confidence:50,effort:1,notes:''};
   });
 }
 export function priorityScore(theme) {
@@ -97,4 +98,58 @@ export function exportBrief(records,themes) {
   }
   lines.push('## Before committing to a roadmap','','- Confirm these themes with customers, including customers who did not submit feedback.','- Check duplicate requests, account coverage, and contradictory evidence.','- Validate reach, confidence, impact, and effort with the team.','- Define an outcome metric and a test before committing to delivery.','');
   return lines.join('\n');
+}
+
+export const MAX_WORKSPACE_BYTES = 16 * 1024 * 1024;
+export const MAX_THEMES = 600;
+export function validateWorkspace(data) {
+  const fail=message=>{throw new Error(`Invalid workspace: ${message}`);};
+  const string=(value,label,max,empty=false)=>{
+    if(typeof value!=='string' || value.length>max || (!empty && !value.trim()))fail(`${label} must be ${empty?'a':'a nonempty'} string of at most ${max} characters.`);
+    return value;
+  };
+  if(!data || data.format!=='feedback-to-roadmap' || data.version!==1)fail('unsupported file format or version.');
+  if(!Array.isArray(data.records) || !data.records.length || data.records.length>MAX_ROWS)fail('expected 1–300 feedback records.');
+  if(!Array.isArray(data.themes) || !data.themes.length || data.themes.length>MAX_THEMES)fail('expected 1–600 themes.');
+  const recordIds=new Set();
+  const records=data.records.map(r=>{
+    if(!r || typeof r!=='object')fail('each feedback record must be an object.');
+    const id=string(r.id,'record ID',200);
+    if(recordIds.has(id))fail('duplicate feedback IDs.');recordIds.add(id);
+    return {id,text:string(r.text,'feedback text',5000),customer:string(r.customer,'customer',300),source:string(r.source,'source',300),date:string(r.date,'date',100,true),segment:string(r.segment,'segment',300)};
+  });
+  const themeIds=new Set(),assigned=new Set();
+  const themes=data.themes.map(t=>{
+    if(!t || typeof t!=='object')fail('each theme must be an object.');
+    const id=string(t.id,'theme ID',200);
+    if(themeIds.has(id))fail('duplicate theme IDs.');themeIds.add(id);
+    if(!Array.isArray(t.ids) || t.ids.length>MAX_ROWS)fail('invalid evidence list.');
+    for(const ref of t.ids){if(!recordIds.has(ref))fail('theme references unknown feedback.');if(assigned.has(ref))fail('feedback belongs to more than one theme.');assigned.add(ref);}
+    if(typeof t.reviewed!=='boolean')fail('review status must be true or false.');
+    if(!Number.isInteger(t.reach)||t.reach<0||t.reach>10000000)fail('reach is out of range.');
+    if(![.25,.5,1,2,3].includes(t.impact))fail('unsupported impact value.');
+    if(!Number.isInteger(t.confidence)||t.confidence<0||t.confidence>100)fail('confidence is out of range.');
+    if(!Number.isFinite(t.effort)||t.effort<.25||t.effort>10000||t.effort*4%1!==0)fail('effort must be a positive quarter-week increment.');
+    return {id,name:string(t.name,'theme name',120),ids:[...t.ids],reviewed:t.reviewed,reach:t.reach,impact:t.impact,confidence:t.confidence,effort:t.effort,notes:string(t.notes,'notes',6000,true)};
+  });
+  if(assigned.size!==recordIds.size)fail('every feedback record must belong to exactly one theme.');
+  return {format:'feedback-to-roadmap',version:1,dataset:string(data.dataset,'dataset name',255),records,themes,selected:themeIds.has(data.selected)?data.selected:themes[0].id};
+}
+export function serializeWorkspace(state){return JSON.stringify(validateWorkspace({format:'feedback-to-roadmap',version:1,...state}),null,2);}
+export function parseWorkspace(text){
+  if(new TextEncoder().encode(text).length>MAX_WORKSPACE_BYTES)throw new Error('Workspace exceeds 16 MB.');
+  let data;try{data=JSON.parse(text);}catch{throw new Error('This is not a valid JSON workspace. Choose a downloaded workspace file.');}
+  return validateWorkspace(data);
+}
+export function mergeThemes(themes,sourceId,targetId){
+  if(sourceId===targetId)throw new Error('Choose a different destination theme.');
+  const source=themes.find(t=>t.id===sourceId),target=themes.find(t=>t.id===targetId);
+  if(!source || !target)throw new Error('Theme not found.');
+  const notes=[target.notes,source.notes?`Merged from ${source.name}:\n${source.notes}`:''].filter(Boolean).join('\n\n');
+  if(notes.length>6000)throw new Error('Combined notes exceed 6,000 characters. Shorten the notes before merging.');
+  return themes.filter(t=>t.id!==sourceId).map(t=>t.id===targetId?{...t,ids:[...new Set([...target.ids,...source.ids])],notes,reviewed:false,reach:0,impact:1,confidence:50,effort:1}:t);
+}
+export function searchFeedback(records,query='',source=''){
+  const terms=query.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
+  return records.filter(r=>(!source||r.source===source)&&terms.every(term=>[r.id,r.text,r.customer,r.segment,r.source].join(' ').toLocaleLowerCase().includes(term)));
 }

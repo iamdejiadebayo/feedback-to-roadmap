@@ -20,7 +20,7 @@ Enable one person to turn a small feedback CSV into a reviewed and prioritized d
 
 ## Explicitly deferred
 
-Live support integrations; accounts and collaboration; duplicate detection; account weighting; date filters; persistent editable sessions; LLM synthesis; embeddings from a remote model; automatic Notion/Substack publication; billing.
+Live support integrations; accounts and collaboration; duplicate detection; account weighting; date filters; automatic workspace persistence; LLM synthesis; embeddings from a remote model; automatic Notion/Substack publication; billing.
 
 ## Proposed delivery phases
 
@@ -36,3 +36,13 @@ Live support integrations; accounts and collaboration; duplicate detection; acco
 - Small datasets can create fragile themes: make correction easy and do not imply statistical validity.
 - Customer data may be sensitive: browser-only processing now; explain exported content.
 - Numeric rankings can create false precision: publish the formula, inputs, and unresolved questions.
+
+## v0.2 follow-up
+
+- Download and reopen a validated JSON workspace without regenerating themes or losing edits.
+- Reject invalid workspace files before asking to replace current work.
+- Merge two themes only after explaining that estimates and review status reset. Preserve all notes and source evidence.
+- Search feedback and metadata, combine with a source filter, and navigate to the owning theme.
+- Keep browser processing local and retain explicit user control over downloaded customer data.
+
+Automated domain checks are included. Browser acceptance testing for these additions is pending local review.

@@ -2,7 +2,7 @@
 
 An evidence-first product workspace for turning scattered customer feedback into reviewable opportunities and a prioritized decision brief.
 
-**Status: v0.1 functional prototype.** Built by Deji Adebayo to demonstrate product discovery, transparent prioritization, and software engineering. Sample customers and feedback are fictional. No customer validation or business-impact results are claimed.
+**Status: v0.2 functional prototype.** Built by Deji Adebayo to demonstrate product discovery, transparent prioritization, and software engineering. Sample customers and feedback are fictional. No customer validation or business-impact results are claimed.
 
 ## What you can do
 
@@ -12,6 +12,9 @@ An evidence-first product workspace for turning scattered customer feedback into
 - Mark themes as reviewed and document decisions and uncertainties.
 - Enter your own RICE assumptions and compare relative priorities.
 - Export a Markdown decision brief for a case study or Notion.
+- Download and reopen an editable JSON workspace, preserving evidence, notes, estimates, and review status.
+- Merge related themes with a confirmation step; combined scope requires fresh review and estimates.
+- Search across feedback, customers, IDs, and segments, and filter by source.
 
 This version uses **TF-IDF text similarity with a small synonym map**, not an LLM. It establishes an interpretable, no-key baseline for a later AI-assisted version. Suggestions can split related feedback or group opposing views; they require human review.
 
@@ -61,11 +64,13 @@ Impact options: 0.25 minimal, 0.5 low, 1 medium, 2 high, 3 massive. Effort is in
 
 ## Data handling and limitations
 
-Feedback stays in tab memory. Nothing is saved automatically, including in localStorage. Refreshing or closing the page loses the workspace. A browser may show a navigation warning, but do not rely on it. The Markdown brief captures your decisions and evidence; it cannot restore the editable workspace.
+Feedback stays in tab memory. Nothing is saved automatically, including in localStorage. Refreshing or closing the page loses the workspace. A browser may show a navigation warning, but do not rely on it. Use **Download workspace** to save an editable JSON copy and **Open workspace** to restore it later. The Markdown brief is a readable report; it cannot restore the editable workspace. There is still no automatic saving. Keep your downloaded file before closing the tab. A workspace download contains the original customer data.
+
+Workspace imports are validated before replacement, including file version, field sizes, score ranges, unique IDs, and complete evidence ownership. Invalid files leave your current workspace untouched. The workspace format supports up to 600 themes and 16 MB. CSV metadata limits are 200 characters for IDs, 300 for customer/source/segment, and 100 for dates.
 
 Exports contain the supplied customer names and quotes. Review/redact them before sharing publicly. Imported text is rendered as text and escaped in exported Markdown.
 
-This prototype has no live integrations, team accounts, cloud storage, LLM calls, Notion publishing, or Substack publishing. Its grouping is English-oriented and order-dependent. Scores are prioritization aids, not forecasts. Browser interaction and visual checks remain for local testing; see `docs/manual-test-plan.md`.
+This prototype has no live integrations, team accounts, cloud storage, LLM calls, Notion publishing, or Substack publishing. Its grouping is English-oriented and order-dependent. Scores are prioritization aids, not forecasts. The initial version has been run locally by the project owner. The new v0.2 browser flows still require local testing; see `docs/manual-test-plan.md`.
 
 ## Repository map
 
