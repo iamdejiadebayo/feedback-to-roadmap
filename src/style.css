@@ -18,3 +18,13 @@ button:disabled,select:disabled{opacity:.5;cursor:not-allowed}
 .import-actions:has(#workspace-file:focus-visible) label[for="csv-file"]{outline:none}
 .import-actions:has(#csv-file:focus-visible) label[for="workspace-file"]{outline:none}
 @media(max-width:680px){.search-controls{grid-template-columns:1fr}.search-panel{padding:16px}.search-result>div{align-items:flex-start;flex-direction:column}.search-result button{max-width:100%}.merge-controls{align-items:stretch;flex-direction:column}.import-actions .button{flex-basis:45%}}
+
+
+.mvp-scope{margin:0 0 22px;padding:15px 20px;border:1px solid var(--line);background:var(--white)}
+.mvp-scope summary{font-size:12px;font-weight:600;cursor:pointer;color:var(--ink)}
+.scope-badge{display:inline-block;margin:0 8px;padding:2px 7px;font:10px/1.5 monospace;color:#526846;background:#e9efdf;border-radius:3px}
+.scope-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin:22px 0 16px}
+.scope-grid h2{font-size:14px;margin-bottom:9px}
+.scope-grid p,.scope-caption{font-size:12px;color:var(--muted);line-height:1.8}
+.scope-caption{border-top:1px solid var(--line);padding-top:12px}
+@media(max-width:680px){.scope-grid{grid-template-columns:1fr;gap:20px}.mvp-scope{padding:14px 16px}}

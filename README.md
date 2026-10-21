@@ -2,7 +2,7 @@
 
 An evidence-first product workspace for turning scattered customer feedback into reviewable opportunities and a prioritized decision brief.
 
-**Status: v0.2 functional prototype.** Built by Deji Adebayo to demonstrate product discovery, transparent prioritization, and software engineering. Sample customers and feedback are fictional. No customer validation or business-impact results are claimed.
+**Status: v0.2 demonstration MVP — no paid API or model download required.** Built by Deji Adebayo to demonstrate product discovery, transparent prioritization, and software engineering. Sample customers and feedback are fictional. No customer validation or business-impact results are claimed.
 
 ## What you can do
 
@@ -16,7 +16,7 @@ An evidence-first product workspace for turning scattered customer feedback into
 - Merge related themes with a confirmation step; combined scope requires fresh review and estimates.
 - Search across feedback, customers, IDs, and segments, and filter by source.
 
-This version uses **TF-IDF text similarity with a small synonym map**, not an LLM. It establishes an interpretable, no-key baseline for a later AI-assisted version. Suggestions can split related feedback or group opposing views; they require human review.
+This version uses **TF-IDF text similarity with a small synonym map**, not an LLM. It demonstrates the complete review-and-prioritization workflow without an AI service. AI-assisted analysis is optional future work, not a prerequisite for completing this MVP. Suggestions can split related feedback or group opposing views; they require human review.
 
 ## Run locally
 
@@ -87,3 +87,11 @@ src/style.css              Responsive visual design
 ## Product story
 
 Start with [the product brief](docs/product-brief.md) and [MVP requirements](docs/prd.md). [Decision log](docs/decisions.md) explains the trade-offs. [Evaluation plan](docs/evaluation-plan.md) separates what is tested from what still needs evidence. [Case study outline](docs/case-study.md) provides a basis for Notion and Substack without inventing results.
+
+## Demonstration scope
+
+The MVP is intentionally self-contained. No OpenAI API key, Ollama installation, model download, or external inference service is required. The working features are real; no generated-looking result is presented as live AI output.
+
+AI-assisted grouping, evidence-linked summaries, and contradiction detection are future experiments. Their value would need to be evaluated against this baseline before inclusion. The current implementation demonstrates product framing, data handling, evidence traceability, prioritization, and engineering. It does not demonstrate a deployed generative-AI integration.
+
+Use [the demo walkthrough](docs/demo-walkthrough.md) for a short portfolio presentation.

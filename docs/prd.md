@@ -26,8 +26,8 @@ Live support integrations; accounts and collaboration; duplicate detection; acco
 
 1. **Baseline (implemented, awaiting browser/user review):** local import, grouping, review, scoring, export, and unit tests.
 2. **Validation:** run manual checks and user sessions, record issues, revise taxonomy and workflow.
-3. **AI experiment:** compare an LLM-assisted pipeline with the local baseline on a labeled dataset. Keep evidence IDs and manual review. Add explicit consent and configuration before transmitting feedback.
-4. **Portfolio release:** add actual screenshots, verified setup instructions from a fresh checkout, measured evaluation results, and a case study that distinguishes findings from hypotheses.
+3. **Demonstration release:** polish the existing workflow, capture actual screenshots, verify setup from a fresh checkout, and publish a case study that distinguishes implementation from unvalidated hypotheses. An AI service is not a release requirement.
+4. **Optional future AI experiment:** compare AI-assisted grouping, evidence-linked summaries, and contradiction detection against the current baseline. Only pursue this if evaluation and user feedback justify the additional complexity. No model download or paid API is required for the MVP.
 
 ## Risks and product responses
 

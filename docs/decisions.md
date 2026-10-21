@@ -64,3 +64,14 @@
 **Decision:** Search and source filters operate across feedback records and link back to their owning theme. They do not remove evidence from scores or change reach.
 
 **Why:** Finding a comment and deciding an opportunity's priority are different tasks. Up to 50 matches are displayed at a time with an explicit count; narrower searches expose additional relevant records.
+
+
+## 009 — Complete the demonstration without a model dependency
+
+**Decision:** Keep the MVP fully functional with local keyword similarity. Defer hosted and downloaded language models, generated summaries, and automated contradiction detection to optional future work.
+
+**Why:** The current goal is a feasible learning and portfolio demonstration. The complete evidence-to-decision workflow can demonstrate product judgment and software engineering without an inference service, subscription, or model installation.
+
+**Trade-off:** The MVP cannot claim semantic understanding or generative-AI capability. This boundary is visible in the interface and README. There are no simulated AI results masquerading as real inference.
+
+**Next:** Test and present the existing workflow, collect feedback, and document limitations. Revisit model integration only when its benefit and setup burden can be assessed.
