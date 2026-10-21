@@ -33,3 +33,10 @@ Record browser/version, date, pass/fail, and screenshots where useful. Do not ma
 - After reopening a file, create a new theme and verify its ID does not collide with existing IDs.
 - Use keyboard-only navigation on Open workspace, merge dialog, and search controls. Check narrow screens.
 - Confirm no external requests and no automatic browser storage.
+
+## Demonstration presentation
+
+- Expand the five-minute walkthrough using both pointer and keyboard. Check each instruction against the application.
+- Confirm the illustrative RICE inputs produce 40 and that the notification search exposes conflicting preferences.
+- Check the walkthrough at mobile and desktop widths.
+- Open the case-study link and verify it describes implemented behavior and clearly labels future work.

@@ -95,3 +95,9 @@ The MVP is intentionally self-contained. No OpenAI API key, Ollama installation,
 AI-assisted grouping, evidence-linked summaries, and contradiction detection are future experiments. Their value would need to be evaluated against this baseline before inclusion. The current implementation demonstrates product framing, data handling, evidence traceability, prioritization, and engineering. It does not demonstrate a deployed generative-AI integration.
 
 Use [the demo walkthrough](docs/demo-walkthrough.md) for a short portfolio presentation.
+
+## Portfolio presentation
+
+Open the in-app **five-minute product walkthrough** for a guided demonstration using fictional feedback. The completed [product case study](docs/case-study.md) explains the problem hypothesis, scope decisions, implementation, limitations, and proposed validation. It is ready to adapt for Notion; it does not claim customer research or business outcomes that have not happened.
+
+The newest walkthrough and portfolio presentation need local visual review. No new AI service or runtime dependency was added.
